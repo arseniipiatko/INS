@@ -1,0 +1,129 @@
+/* General reset for margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  background-color: black; /* Black background */
+  color: white; /* White font color */
+  font-family: Arial, sans-serif; /* Set font style */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the body takes full viewport height */
+}
+
+/* Center the main content */
+main {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Vertical centering */
+  align-items: center; /* Horizontal centering */
+  flex: 1; /* Push footer to the bottom */
+  padding: 20px;
+  text-align: center; /* Center-align text inside the main block */
+}
+
+main p {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Style the button container */
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Distribute buttons evenly */
+  width: 100%; /* Match parent container width */
+  max-width: 600px; /* Match the paragraph's max-width */
+}
+
+/* Style for the buttons */
+button {
+  flex: 1; /* Make buttons the same size */
+  max-width: calc(50% - 10px); /* Ensure they fit within the container */
+  padding: 10px 0; /* Equal vertical padding */
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin: 0 5px; /* Space between buttons */
+}
+
+button:hover {
+  background-color: #ddd; /* Slightly darker on hover */
+}
+
+button:active {
+  background-color: #bbb; /* Darker on click */
+}
+
+/* Disabled button styles */
+button:disabled {
+  background-color: #555; /* Dark gray background */
+  color: #888; /* Lighter gray text */
+  cursor: not-allowed; /* Change cursor to indicate it's disabled */
+  border: 1px solid #333; /* Subtle border to show it's still a button */
+}
+
+/* Header styles */
+header {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #222; /* Slightly lighter black for contrast */
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Footer styles */
+footer {
+  background-color: #222; /* Slightly lighter black for contrast */
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Style for the paragraph in the #status div */
+#status p {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem; /* Default font size */
+  line-height: 1.8;
+  padding: 20px;
+  border: 2px solid white; /* Border for READY_TO_START */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Remove border and increase font size for all statuses except READY_TO_START */
+#status .p-no-border {
+  border: none; /* Remove border */
+  font-size: 2rem; /* Larger font for other statuses */
+}
+
+#status,
+#playing-info {
+  width: 100%; /* Match parent container width */
+  max-width: 600px; /* Match the paragraph's max-width */
+}
