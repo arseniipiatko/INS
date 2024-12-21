@@ -147,7 +147,7 @@ footer {
   padding: 10px;
   text-align: center;
   width: 100%;
-  max-width: 100px;
+  max-width: 80px;
   margin-right: 20px; /* Space between the input and the radio buttons */
   border: 2px solid white;
   border-radius: 8px;
