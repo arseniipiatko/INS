@@ -39,8 +39,11 @@ const statusText = document.querySelector("#status p");
 const playingInfoDiv = document.getElementById("playing-info");
 const currentPositionElement = document.getElementById("current-position");
 const currentPayoutElement = document.getElementById("current-payout");
+const skillFactor = document.getElementById("skill-factor");
+const inexpFactor = document.getElementById("inexperience-factor");
+const userInput = document.getElementById("user-input");
+const inputSection = document.getElementById("input-section");
 
-// Update the status text and button text based on the current state
 // Update the game status and button text based on the current state
 function updateGameStatus() {
   switch (currentState) {
@@ -51,6 +54,7 @@ function updateGameStatus() {
       startButton.textContent = "Start"; // Change text to "Start"
       playingInfoDiv.classList.add("hidden"); // Hide the playing info
       statusText.classList.remove("p-no-border"); // Remove larger font and border
+      inputSection.classList.remove("hidden");
       break;
     case GameState.PLAYING:
       statusText.textContent = "Game is in progress...";
@@ -59,6 +63,7 @@ function updateGameStatus() {
       startButton.textContent = "Next"; // Change text to "Next"
       playingInfoDiv.classList.remove("hidden"); // Show the playing info
       statusText.classList.add("p-no-border"); // Apply larger font and remove border
+      inputSection.classList.add("hidden");
       updatePositionAndPayout(); // Update position and payout
       break;
     case GameState.LOST:
@@ -68,6 +73,7 @@ function updateGameStatus() {
       startButton.textContent = "Next"; // Change text to "Next"
       playingInfoDiv.classList.remove("hidden"); // Show the playing info
       statusText.classList.add("p-no-border"); // Apply larger font and remove border
+      inputSection.classList.add("hidden");
       updatePositionAndPayout(); // Update position and payout
       break;
     case GameState.WON:
@@ -87,12 +93,17 @@ function updatePositionAndPayout() {
 // Start button functionality (Now also handles "Next" behavior)
 startButton.addEventListener("click", () => {
   if (currentState === GameState.READY_TO_START) {
-    if (currentLeave !== currentPosition) {
-      currentState = GameState.PLAYING;
-    } else {
-      currentState = GameState.LOST;
+    try {
+      updateCurrentLeave();
+      if (currentLeave !== currentPosition) {
+        currentState = GameState.PLAYING;
+      } else {
+        currentState = GameState.LOST;
+      }
+      updateGameStatus();
+    } catch (e) {
+      alert(e.message);
     }
-    updateGameStatus();
   } else if (currentState === GameState.PLAYING) {
     // Add behavior for "Next" action, like progressing the game or handling win/loss states
     currentPosition -= 1;
@@ -117,6 +128,30 @@ restartButton.addEventListener("click", () => {
   currentPayout = payoutsAmounts[currentPosition];
   currentLeave = randBetween(1, 100);
 });
+
+function updateCurrentLeave() {
+  if (
+    userInput.value <= 100 &&
+    userInput.value > 0 &&
+    Number.isInteger(Number(userInput.value))
+  ) {
+    if (skillFactor.checked) {
+      let minValue = 100;
+      for (let i = 1; i <= userInput.value; i++) {
+        minValue = Math.min(minValue, randBetween(1, 100));
+      }
+      currentLeave = minValue;
+    } else {
+      let maxValue = 1;
+      for (let i = 1; i <= userInput.value; i++) {
+        maxValue = Math.max(maxValue, randBetween(1, 100));
+      }
+      currentLeave = maxValue;
+    }
+  } else {
+    throw new Error("Factor must be an integer between 1 and 100");
+  }
+}
 
 // Initial state update
 updateGameStatus();

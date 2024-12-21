@@ -23,9 +23,39 @@
         <p>Current Position: <span id="current-position"></span></p>
         <p>Current Payout: <span id="current-payout"></span></p>
       </div>
+
       <div class="button-container">
         <button id="restart" disabled>Restart</button>
         <button id="start">Start</button>
+      </div>
+
+      <!-- Input and radio buttons section -->
+      <div class="input-section" id="input-section">
+        <div class="input-radio-container">
+          <!-- Number input on the left -->
+          <input
+            type="number"
+            id="user-input"
+            value="1"
+            min="1"
+            max="100"
+            step="1"
+            text-align="center"
+          />
+
+          <!-- Radio buttons container on the right -->
+          <form class="radio-buttons" id="factor-form">
+            <label for="skill-factor">
+              <input type="radio" id="skill-factor" name="factor" checked />
+              Skill factor
+            </label>
+
+            <label for="inexperience-factor">
+              <input type="radio" id="inexperience-factor" name="factor" />
+              Inexperience factor
+            </label>
+          </form>
+        </div>
       </div>
     </main>
 

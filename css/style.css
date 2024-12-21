@@ -7,23 +7,23 @@
 
 /* Style the body */
 body {
-  background-color: black; /* Black background */
-  color: white; /* White font color */
-  font-family: Arial, sans-serif; /* Set font style */
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure the body takes full viewport height */
+  min-height: 100vh;
 }
 
 /* Center the main content */
 main {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Vertical centering */
-  align-items: center; /* Horizontal centering */
-  flex: 1; /* Push footer to the bottom */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
   padding: 20px;
-  text-align: center; /* Center-align text inside the main block */
+  text-align: center;
 }
 
 main p {
@@ -41,16 +41,16 @@ main p {
 /* Style the button container */
 .button-container {
   display: flex;
-  justify-content: space-between; /* Distribute buttons evenly */
-  width: 100%; /* Match parent container width */
-  max-width: 600px; /* Match the paragraph's max-width */
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Style for the buttons */
 button {
-  flex: 1; /* Make buttons the same size */
-  max-width: calc(50% - 10px); /* Ensure they fit within the container */
-  padding: 10px 0; /* Equal vertical padding */
+  flex: 1;
+  max-width: calc(50% - 10px);
+  padding: 10px 0;
   font-size: 1rem;
   color: black;
   background-color: white;
@@ -59,30 +59,30 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
-  margin: 0 5px; /* Space between buttons */
+  margin: 0 5px;
 }
 
 button:hover {
-  background-color: #ddd; /* Slightly darker on hover */
+  background-color: #ddd;
 }
 
 button:active {
-  background-color: #bbb; /* Darker on click */
+  background-color: #bbb;
 }
 
 /* Disabled button styles */
 button:disabled {
-  background-color: #555; /* Dark gray background */
-  color: #888; /* Lighter gray text */
-  cursor: not-allowed; /* Change cursor to indicate it's disabled */
-  border: 1px solid #333; /* Subtle border to show it's still a button */
+  background-color: #555;
+  color: #888;
+  cursor: not-allowed;
+  border: 1px solid #333;
 }
 
 /* Header styles */
 header {
   text-align: center;
   padding: 20px 0;
-  background-color: #222; /* Slightly lighter black for contrast */
+  background-color: #222;
   position: fixed;
   top: 0;
   width: 100%;
@@ -90,7 +90,7 @@ header {
 
 /* Footer styles */
 footer {
-  background-color: #222; /* Slightly lighter black for contrast */
+  background-color: #222;
   text-align: center;
   padding: 10px;
   font-size: 0.9rem;
@@ -99,17 +99,13 @@ footer {
   width: 100%;
 }
 
-.hidden {
-  display: none;
-}
-
 /* Style for the paragraph in the #status div */
 #status p {
   font-family: Arial, sans-serif;
-  font-size: 1.5rem; /* Default font size */
+  font-size: 1.5rem;
   line-height: 1.8;
   padding: 20px;
-  border: 2px solid white; /* Border for READY_TO_START */
+  border: 2px solid white;
   border-radius: 8px;
   margin-bottom: 20px;
   width: 100%;
@@ -118,12 +114,67 @@ footer {
 
 /* Remove border and increase font size for all statuses except READY_TO_START */
 #status .p-no-border {
-  border: none; /* Remove border */
-  font-size: 2rem; /* Larger font for other statuses */
+  border: none;
+  font-size: 2rem;
 }
 
 #status,
 #playing-info {
-  width: 100%; /* Match parent container width */
-  max-width: 600px; /* Match the paragraph's max-width */
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Style for the input section */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.input-radio-container {
+  display: flex;
+  justify-content: center; /* Position the input and radio buttons side by side */
+  align-items: center; /* Vertically align the elements */
+  width: 100%;
+  max-width: 600px;
+}
+
+#user-input {
+  font-size: 1.5rem;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  max-width: 100px;
+  margin-right: 20px; /* Space between the input and the radio buttons */
+  border: 2px solid white;
+  border-radius: 8px;
+  background-color: #333;
+  color: white;
+}
+
+/* Style for the radio buttons container */
+.radio-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.radio-buttons label {
+  font-size: 1.5rem; /* Increased size for labels */
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.radio-buttons input[type="radio"] {
+  margin-right: 10px;
+  width: 20px; /* Increase size of the radio button */
+  height: 20px; /* Increase size of the radio button */
+}
+
+.hidden {
+  display: none;
 }
