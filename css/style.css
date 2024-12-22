@@ -22,7 +22,10 @@ main {
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 77px;
+  padding-bottom: 36.5px;
   text-align: center;
 }
 
@@ -86,6 +89,7 @@ header {
   position: sticky;
   top: 0;
   width: 100%;
+  position: fixed;
 }
 
 /* Footer styles */
@@ -97,6 +101,7 @@ footer {
   position: sticky;
   bottom: 0;
   width: 100%;
+  position: fixed;
 }
 
 /* Style for the paragraph in the #status div */

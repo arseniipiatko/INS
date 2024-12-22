@@ -250,7 +250,8 @@ function updateGameStatus() {
       break;
     case GameState.END_OF_GAME:
       statusText.textContent = declareWinner(players, payoutsAmounts);
-      startButton.disabled = true; // Enable start button
+      startButton.disabled = true; // Disable start button
+      startButton.removeAttribute("style");
       playingInfoDiv.classList.add("hidden");
       updatePositionAndPayout(); // Update position and payout
       break;
