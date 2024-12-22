@@ -29,33 +29,33 @@
         <button id="start">Start</button>
       </div>
 
-      <!-- Input and radio buttons section -->
+      <!-- Input section -->
       <div class="input-section" id="input-section">
-        <div class="input-radio-container">
-          <!-- Number input on the left -->
-          <input
-            type="number"
-            id="user-input"
-            value="1"
-            min="1"
-            max="100"
-            step="1"
-            text-align="center"
-          />
+        <!-- Number input -->
+        <input
+          type="number"
+          id="user-input"
+          value="0.5"
+          min="0"
+          max="1"
+          text-align="center"
+        />
+        <label id="input-label" for="user-input">Success rate</label>
+      </div>
 
-          <!-- Radio buttons container on the right -->
-          <form class="radio-buttons" id="factor-form">
-            <label for="skill-factor">
-              <input type="radio" id="skill-factor" name="factor" checked />
-              Skill factor
-            </label>
+      <div class="player-grid">
+        <div class="grid-header">Player:</div>
+        <div class="grid-header">Kill:</div>
+        <div class="grid-header">Pos.:</div>
+        <div class="grid-header">Payout:</div>
 
-            <label for="inexperience-factor">
-              <input type="radio" id="inexperience-factor" name="factor" />
-              Inexp. factor
-            </label>
-          </form>
-        </div>
+        <!-- 100 rows of data, placeholder cells -->
+        <div class="grid-item">Player 1</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">Position 1</div>
+        <div class="grid-item">$100</div>
+
+        <!-- Repeat above rows as needed or dynamically insert data -->
       </div>
     </main>
 
@@ -63,7 +63,7 @@
       <p>&copy; 2024 Pyatkosoft</p>
     </footer>
 
-    <script src="js/script.js"></script>
-    <!-- Link to external JavaScript -->
+    <script type="module" src="/js/script.js"></script>
+    <!-- Links to external JavaScript -->
   </body>
 </html>

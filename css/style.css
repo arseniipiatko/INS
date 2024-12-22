@@ -83,7 +83,7 @@ header {
   text-align: center;
   padding: 20px 0;
   background-color: #222;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 }
@@ -94,7 +94,7 @@ footer {
   text-align: center;
   padding: 10px;
   font-size: 0.9rem;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
 }
@@ -129,15 +129,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 600px;
-}
-
-.input-radio-container {
-  display: flex;
-  justify-content: center; /* Position the input and radio buttons side by side */
-  align-items: center; /* Vertically align the elements */
+  margin-top: 40px;
   width: 100%;
   max-width: 600px;
 }
@@ -147,32 +139,47 @@ footer {
   padding: 10px;
   text-align: center;
   width: 100%;
-  max-width: 80px;
-  margin-right: 20px; /* Space between the input and the radio buttons */
   border: 2px solid white;
   border-radius: 8px;
   background-color: #333;
   color: white;
 }
 
-/* Style for the radio buttons container */
-.radio-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+#input-label {
+  font-size: 1.5rem;
+  margin-top: 10px;
 }
 
-.radio-buttons label {
-  font-size: 1.5rem; /* Increased size for labels */
+/* Grid styling for player data */
+.player-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 3fr;
+  grid-template-rows: auto repeat(100, 1fr); /* One header row + 100 data rows */
+  gap: 0; /* No gap between cells */
+  margin-top: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Header styling */
+.grid-header {
+  background-color: white;
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid white; /* Border between header and data */
+}
+
+/* Grid item styling for data cells */
+.grid-item {
+  background-color: transparent;
   color: white;
-  display: flex;
-  align-items: center;
-}
-
-.radio-buttons input[type="radio"] {
-  margin-right: 10px;
-  width: 20px; /* Increase size of the radio button */
-  height: 20px; /* Increase size of the radio button */
+  font-size: 1rem;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid white; /* Remove borders between data cells */
 }
 
 .hidden {
