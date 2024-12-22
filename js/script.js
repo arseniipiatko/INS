@@ -164,9 +164,15 @@ const playerGrid = document.querySelector(".player-grid");
 function updateGrid() {
   const existingItems = playerGrid.querySelectorAll(".grid-item");
   existingItems.forEach((item) => item.remove());
+  const playerIDs = Object.keys(players).sort((a, b) => {
+    if (players[a].position === "" && players[b].position === "") {
+      return players[a].id - players[b].id;
+    }
+    return players[a].position - players[b].position;
+  });
 
   // Add data rows
-  Object.keys(players).forEach((player) => {
+  playerIDs.forEach((player) => {
     const playerCell = document.createElement("div");
     playerCell.className = "grid-item";
     playerCell.textContent = `Player ${players[player].id}`;
@@ -240,6 +246,7 @@ function updateGameStatus() {
       statusText.textContent = "You lost the game!";
       startButton.textContent = "Results"; // Change text to "Next"
       startButton.style.backgroundColor = "white";
+      playingInfoDiv.classList.add("hidden"); // Hide the playing info
       updatePositionAndPayout(); // Update position and payout
       break;
     case GameState.WON:
