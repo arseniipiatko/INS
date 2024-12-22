@@ -115,7 +115,7 @@ footer {
 /* Remove border and increase font size for all statuses except READY_TO_START */
 #status .p-no-border {
   border: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 #status,

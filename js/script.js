@@ -17,7 +17,7 @@ function genetrateRandomPair(players, currentPair) {
   currentPair.push(playersPool[player2]);
 }
 
-export function readyToStartUpdate(
+function readyToStartUpdate(
   players,
   currentPosition,
   currentPayout,
@@ -30,7 +30,7 @@ export function readyToStartUpdate(
   currentPayout["current"] = payoutsAmounts[currentPosition["current"]];
 }
 
-export function nextStatus(currentPair, players) {
+function nextStatus(currentPair, players) {
   genetrateRandomPair(players, currentPair);
   if (currentPair.includes(1)) {
     return GameState.ENCOUTERED;
@@ -38,7 +38,7 @@ export function nextStatus(currentPair, players) {
   return GameState.PASSED;
 }
 
-export function fight(
+function fight(
   currentPosition,
   currentPair,
   players,
@@ -80,7 +80,7 @@ export function fight(
   currentPayout["current"] = payoutsAmounts[currentPosition["current"]];
 }
 
-export function endTheGame(
+function endTheGame(
   currentPosition,
   currentPair,
   players,
@@ -101,7 +101,7 @@ export function endTheGame(
   }
 }
 
-export function declareWinner(players, payoutsAmounts) {
+function declareWinner(players, payoutsAmounts) {
   if (players[1].position === "") {
     players[1].position = 1;
     players[1].payout = payoutsAmounts[1];
@@ -117,7 +117,7 @@ export function declareWinner(players, payoutsAmounts) {
 }
 
 // Define the game states using an enum-like object
-export const GameState = Object.freeze({
+const GameState = Object.freeze({
   READY_TO_START: "READY_TO_START",
   PASSED: "PASSED",
   ENCOUTERED: "ENCOUTERED",
