@@ -322,7 +322,6 @@ function updatePositionAndPayout() {
 
 // Start button functionality (Now also handles "Next" behavior)
 startButton.addEventListener("click", (event) => {
-  event.preventDefault();
   if (currentState === GameState.READY_TO_START) {
     try {
       updateCurrentSkill();
