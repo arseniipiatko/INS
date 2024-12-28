@@ -223,35 +223,15 @@ function updateGrid() {
     payoutCell.textContent = players[player].payout;
 
     if (players[player].payout) {
-      // Long press duration (in milliseconds)
-      const holdDuration = 500; // 500 ms
-
-      // Variable to track the timer
-      let holdTimer;
-
-      // Handle touch start
-      payoutCell.addEventListener("touchstart", (event) => {
-        event.preventDefault();
-        // Start the timer
-        holdTimer = setTimeout(() => {
-          navigator.clipboard
-            .writeText(players[player].payout)
-            .then(() => {
-              showPopUp();
-            })
-            .catch((err) => {
-              console.error("Failed to copy text: ", err);
-            });
-        }, holdDuration);
-      });
-
-      // Handle touch end or touch cancel
-      payoutCell.addEventListener("touchend", () => {
-        clearTimeout(holdTimer); // Cancel the timer
-      });
-
-      payoutCell.addEventListener("touchcancel", () => {
-        clearTimeout(holdTimer); // Cancel the timer
+      payoutCell.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText(players[player].payout)
+          .then(() => {
+            showPopUp();
+          })
+          .catch((err) => {
+            console.error("Failed to copy text: ", err);
+          });
       });
     }
 
