@@ -284,7 +284,6 @@ function updateGameStatus() {
         payoutsAmounts,
         currentPair
       );
-      showPopUp();
       break;
     case GameState.PASSED:
       statusText.textContent = `Player ${currentPair[0]} have encoutered Player ${currentPair[1]}`;
