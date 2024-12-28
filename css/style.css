@@ -168,6 +168,7 @@ footer {
 
 /* Header styling */
 .grid-header {
+  user-select: none;
   background-color: white;
   color: black;
   font-size: 1.2rem;

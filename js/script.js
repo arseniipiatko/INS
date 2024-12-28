@@ -126,6 +126,12 @@ const GameState = Object.freeze({
   END_OF_GAME: "END_OF_GAME",
 });
 
+const SortType = Object.freeze({
+  BY_PLAYER: "BY_PLAYER",
+  BY_KILLS: "BY_KILLS",
+  BY_POS: "BY_POS",
+});
+
 const payoutsAmounts = { 1: 1000000000 };
 
 for (let i = 2; i <= 100; i++) {
@@ -149,6 +155,7 @@ let currentPosition = {};
 let currentPayout = {};
 let currentPair = [undefined, undefined];
 let currentSkill = 0.5;
+let currentSort = SortType.BY_POS;
 
 // Get references to buttons, status, and playing info
 const restartButton = document.getElementById("restart");
@@ -160,16 +167,41 @@ const currentPayoutElement = document.getElementById("current-payout");
 const userInput = document.getElementById("user-input");
 const inputSection = document.getElementById("input-section");
 const playerGrid = document.querySelector(".player-grid");
+const playerHeader = document.getElementById("player-header");
+const killHeader = document.getElementById("kill-header");
+const posHeader = document.getElementById("pos-header");
 
 function updateGrid() {
   const existingItems = playerGrid.querySelectorAll(".grid-item");
   existingItems.forEach((item) => item.remove());
-  const playerIDs = Object.keys(players).sort((a, b) => {
-    if (players[a].position === "" && players[b].position === "") {
-      return players[a].id - players[b].id;
-    }
-    return players[a].position - players[b].position;
-  });
+  let playerIDs;
+
+  switch (currentSort) {
+    case SortType.BY_POS:
+      playerIDs = Object.keys(players).sort((a, b) => {
+        if (players[a].position === "" && players[b].position === "") {
+          return players[a].id - players[b].id;
+        }
+        return players[a].position - players[b].position;
+      });
+      break;
+    case SortType.BY_PLAYER:
+      playerIDs = Object.keys(players).sort((a, b) => {
+        return players[a].id - players[b].id;
+      });
+      break;
+    case SortType.BY_KILLS:
+      playerIDs = Object.keys(players).sort((a, b) => {
+        if (players[a].kills === players[b].kills) {
+          if (players[a].position === "" && players[b].position === "") {
+            return players[a].id - players[b].id;
+          } else {
+            return players[a].position - players[b].position;
+          }
+        }
+        return players[b].kills - players[a].kills;
+      });
+  }
 
   // Add data rows
   playerIDs.forEach((player) => {
@@ -210,6 +242,7 @@ function updateGameStatus() {
       inputSection.classList.remove("hidden");
       playerGrid.classList.add("hidden");
       startButton.removeAttribute("style");
+      currentSort = SortType.BY_POS;
       readyToStartUpdate(
         players,
         currentPosition,
@@ -334,6 +367,21 @@ startButton.addEventListener("click", () => {
 restartButton.addEventListener("click", () => {
   currentState = GameState.READY_TO_START;
   updateGameStatus();
+});
+
+playerHeader.addEventListener("click", () => {
+  currentSort = SortType.BY_PLAYER;
+  updateGrid();
+});
+
+killHeader.addEventListener("click", () => {
+  currentSort = SortType.BY_KILLS;
+  updateGrid();
+});
+
+posHeader.addEventListener("click", () => {
+  currentSort = SortType.BY_POS;
+  updateGrid();
 });
 
 function updateCurrentSkill() {
