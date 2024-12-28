@@ -225,7 +225,7 @@ function updateGrid() {
     if (players[player].payout) {
       payoutCell.addEventListener("click", () => {
         navigator.clipboard
-          .writeText(playerIDs.join("	"))
+          .writeText(players[player].payout)
 
           .then(() => {
             showPopUp();
