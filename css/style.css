@@ -186,6 +186,32 @@ footer {
   text-align: center;
   padding: 10px;
   border: 1px solid white; /* Remove borders between data cells */
+  user-select: none;
+}
+
+/* Popup container */
+.popup {
+  position: fixed;
+  top: 97px; /* Adjust distance from the top */
+  right: 15px; /* Adjust distance from the right */
+  width: auto;
+  padding: 10px;
+
+  background-color: white;
+  color: black;
+  box-shadow: 1px 2px 2px 1px rgba(255, 255, 255, 0.5); /* Shadow */
+  opacity: 0; /* Start hidden */
+  transform: translateY(-20px); /* Start slightly above */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth animation */
+  z-index: 1000; /* Ensure it's on top */
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+/* Show the popup */
+.popup.visible {
+  opacity: 1;
+  transform: translateY(0); /* Animate into position */
+  pointer-events: auto; /* Allow interaction */
 }
 
 .hidden {

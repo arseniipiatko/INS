@@ -170,6 +170,7 @@ const playerGrid = document.querySelector(".player-grid");
 const playerHeader = document.getElementById("player-header");
 const killHeader = document.getElementById("kill-header");
 const posHeader = document.getElementById("pos-header");
+const popup = document.getElementById("popup");
 
 function updateGrid() {
   const existingItems = playerGrid.querySelectorAll(".grid-item");
@@ -221,6 +222,39 @@ function updateGrid() {
     payoutCell.className = "grid-item";
     payoutCell.textContent = players[player].payout;
 
+    if (players[player].payout) {
+      // Long press duration (in milliseconds)
+      const holdDuration = 500; // 500 ms
+
+      // Variable to track the timer
+      let holdTimer;
+
+      // Handle touch start
+      payoutCell.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        // Start the timer
+        holdTimer = setTimeout(() => {
+          navigator.clipboard
+            .writeText(players[player].payout)
+            .then(() => {
+              showPopUp();
+            })
+            .catch((err) => {
+              console.error("Failed to copy text: ", err);
+            });
+        }, holdDuration);
+      });
+
+      // Handle touch end or touch cancel
+      payoutCell.addEventListener("touchend", () => {
+        clearTimeout(holdTimer); // Cancel the timer
+      });
+
+      payoutCell.addEventListener("touchcancel", () => {
+        clearTimeout(holdTimer); // Cancel the timer
+      });
+    }
+
     // Append cells to the grid
     playerGrid.appendChild(playerCell);
     playerGrid.appendChild(killsCell);
@@ -250,6 +284,7 @@ function updateGameStatus() {
         payoutsAmounts,
         currentPair
       );
+      showPopUp();
       break;
     case GameState.PASSED:
       statusText.textContent = `Player ${currentPair[0]} have encoutered Player ${currentPair[1]}`;
@@ -395,6 +430,13 @@ function updateCurrentSkill() {
   } else {
     throw new Error("Factor must be an number between 0 and 1");
   }
+}
+
+function showPopUp() {
+  popup.classList.add("visible");
+  setTimeout(() => {
+    popup.classList.remove("visible");
+  }, 1000);
 }
 
 // Initial state update
