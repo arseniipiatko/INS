@@ -209,6 +209,7 @@ function updateGameStatus() {
       statusText.classList.remove("p-no-border"); // Remove larger font and border
       inputSection.classList.remove("hidden");
       playerGrid.classList.add("hidden");
+      startButton.removeAttribute("style");
       readyToStartUpdate(
         players,
         currentPosition,
