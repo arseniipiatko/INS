@@ -418,21 +418,5 @@ function showPopUp() {
   }, 1000);
 }
 
-//Preventing zoom on double tap
-let lastTouchTime = 0;
-
-document.addEventListener(
-  "touchstart",
-  (event) => {
-    const currentTime = new Date().getTime();
-    if (currentTime - lastTouchTime < 300) {
-      event.preventDefault(); // Prevent default double-tap zoom
-    }
-    lastTouchTime = currentTime;
-  },
-  { passive: false }
-);
-//
-
 // Initial state update
 updateGameStatus();
