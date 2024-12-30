@@ -156,6 +156,8 @@ let currentPayout = {};
 let currentPair = [undefined, undefined];
 let currentSkill = 0.5;
 let currentSort = SortType.BY_POS;
+let currentSelected = [];
+let sortedIDs = [];
 
 // Get references to buttons, status, and playing info
 const restartButton = document.getElementById("restart");
@@ -175,11 +177,10 @@ const popup = document.getElementById("popup");
 function updateGrid() {
   const existingItems = playerGrid.querySelectorAll(".grid-item");
   existingItems.forEach((item) => item.remove());
-  let playerIDs;
 
   switch (currentSort) {
     case SortType.BY_POS:
-      playerIDs = Object.keys(players).sort((a, b) => {
+      sortedIDs = Object.keys(players).sort((a, b) => {
         if (players[a].position === "" && players[b].position === "") {
           return players[a].id - players[b].id;
         }
@@ -187,12 +188,12 @@ function updateGrid() {
       });
       break;
     case SortType.BY_PLAYER:
-      playerIDs = Object.keys(players).sort((a, b) => {
+      sortedIDs = Object.keys(players).sort((a, b) => {
         return players[a].id - players[b].id;
       });
       break;
     case SortType.BY_KILLS:
-      playerIDs = Object.keys(players).sort((a, b) => {
+      sortedIDs = Object.keys(players).sort((a, b) => {
         if (players[a].kills === players[b].kills) {
           if (players[a].position === "" && players[b].position === "") {
             return players[a].id - players[b].id;
@@ -205,10 +206,11 @@ function updateGrid() {
   }
 
   // Add data rows
-  playerIDs.forEach((player) => {
+  sortedIDs.forEach((player) => {
     const playerCell = document.createElement("div");
     playerCell.className = "grid-item";
     playerCell.textContent = `Player ${players[player].id}`;
+    playerCell.addEventListener("click", handleSelection);
 
     const killsCell = document.createElement("div");
     killsCell.className = "grid-item";
@@ -219,22 +221,16 @@ function updateGrid() {
     positionCell.textContent = players[player].position;
 
     const payoutCell = document.createElement("div");
-    payoutCell.className = "grid-item";
-    payoutCell.textContent = players[player].payout;
-
-    if (players[player].payout) {
-      payoutCell.addEventListener("click", () => {
-        navigator.clipboard
-          .writeText(players[player].payout)
-
-          .then(() => {
-            showPopUp();
-          })
-          .catch((err) => {
-            console.error("Failed to copy text: ", err);
-          });
-      });
+    if (currentSelected.includes(player)) {
+      payoutCell.className = "grid-item selected";
+      payoutCell.addEventListener("click", handleGroupCopy);
+    } else {
+      payoutCell.className = "grid-item";
+      if (players[player].payout) {
+        payoutCell.addEventListener("click", handleSingleCopy);
+      }
     }
+    payoutCell.textContent = players[player].payout;
 
     // Append cells to the grid
     playerGrid.appendChild(playerCell);
@@ -258,6 +254,7 @@ function updateGameStatus() {
       playerGrid.classList.add("hidden");
       startButton.removeAttribute("style");
       currentSort = SortType.BY_POS;
+      currentSelected = [];
       readyToStartUpdate(
         players,
         currentPosition,
@@ -381,21 +378,25 @@ startButton.addEventListener("click", (event) => {
 // Restart button functionality
 restartButton.addEventListener("click", () => {
   currentState = GameState.READY_TO_START;
+  currentSelected = [];
   updateGameStatus();
 });
 
 playerHeader.addEventListener("click", () => {
   currentSort = SortType.BY_PLAYER;
+  currentSelected = [];
   updateGrid();
 });
 
 killHeader.addEventListener("click", () => {
   currentSort = SortType.BY_KILLS;
+  currentSelected = [];
   updateGrid();
 });
 
 posHeader.addEventListener("click", () => {
   currentSort = SortType.BY_POS;
+  currentSelected = [];
   updateGrid();
 });
 
@@ -417,6 +418,71 @@ function showPopUp() {
   setTimeout(() => {
     popup.classList.remove("visible");
   }, 1000);
+}
+
+function handleSelection(event) {
+  const selectedPlayer = event.target.textContent.slice(7);
+  if (currentSelected.length === 0) {
+    currentSelected = [selectedPlayer];
+  } else if (currentSelected.length === 1) {
+    if (selectedPlayer === currentSelected[0]) {
+      currentSelected = [];
+    } else if (
+      sortedIDs.indexOf(selectedPlayer) < sortedIDs.indexOf(currentSelected[0])
+    ) {
+      currentSelected = [selectedPlayer];
+    } else {
+      const startingPosition = sortedIDs.indexOf(currentSelected[0]);
+      const endingPosition = sortedIDs.indexOf(selectedPlayer);
+      currentSelected = sortedIDs.slice(startingPosition, endingPosition + 1);
+    }
+  } else {
+    if (
+      sortedIDs.indexOf(selectedPlayer) < sortedIDs.indexOf(currentSelected[0])
+    ) {
+      currentSelected = [selectedPlayer];
+    } else if (
+      sortedIDs.indexOf(selectedPlayer) ===
+      sortedIDs.indexOf(currentSelected[0])
+    ) {
+      currentSelected = [];
+    } else {
+      const startingPosition = sortedIDs.indexOf(currentSelected[0]);
+      const endingPosition = sortedIDs.indexOf(selectedPlayer);
+      currentSelected = sortedIDs.slice(startingPosition, endingPosition + 1);
+    }
+  }
+  updateGrid();
+}
+
+function handleSingleCopy(event) {
+  navigator.clipboard
+    .writeText(event.target.textContent)
+
+    .then(() => {
+      showPopUp();
+    })
+    .catch((err) => {
+      console.error("Failed to copy text: ", err);
+    });
+}
+
+function handleGroupCopy() {
+  let bufferValue = "";
+  currentSelected.forEach((playerID) => {
+    bufferValue = bufferValue + players[playerID].payout + "\t";
+  });
+  bufferValue = bufferValue.slice(0, -1);
+
+  navigator.clipboard
+    .writeText(bufferValue)
+
+    .then(() => {
+      showPopUp();
+    })
+    .catch((err) => {
+      console.error("Failed to copy text: ", err);
+    });
 }
 
 // Initial state update

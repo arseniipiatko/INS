@@ -189,6 +189,11 @@ footer {
   user-select: none;
 }
 
+.grid-item.selected {
+  background-color: gray;
+  color: black;
+}
+
 /* Popup container */
 .popup {
   position: fixed;
