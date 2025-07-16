@@ -52,7 +52,7 @@ main p {
 /* Style for the buttons */
 button {
   flex: 1;
-  max-width: calc(50% - 10px);
+  max-width: calc(100% - 10px);
   padding: 10px 0;
   font-size: 1rem;
   color: black;
@@ -71,14 +71,6 @@ button:hover {
 
 button:active {
   background-color: #bbb;
-}
-
-/* Disabled button styles */
-button:disabled {
-  background-color: #555;
-  color: #888;
-  cursor: not-allowed;
-  border: 1px solid #333;
 }
 
 /* Header styles */
@@ -107,20 +99,13 @@ footer {
 /* Style for the paragraph in the #status div */
 #status p {
   font-family: Arial, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   line-height: 1.8;
+  border: none;
   padding: 20px;
-  border: 2px solid white;
-  border-radius: 8px;
   margin-bottom: 20px;
   width: 100%;
   text-align: center;
-}
-
-/* Remove border and increase font size for all statuses except READY_TO_START */
-#status .p-no-border {
-  border: none;
-  font-size: 1.8rem;
 }
 
 #status,
@@ -158,7 +143,7 @@ footer {
 /* Grid styling for player data */
 .player-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 3fr;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
   grid-template-rows: auto repeat(100, 1fr); /* One header row + 100 data rows */
   gap: 0; /* No gap between cells */
   margin-top: 40px;
@@ -189,11 +174,6 @@ footer {
   user-select: none;
 }
 
-.grid-item.selected {
-  background-color: gray;
-  color: black;
-}
-
 /* Popup container */
 .popup {
   position: fixed;
@@ -221,4 +201,8 @@ footer {
 
 .hidden {
   display: none;
+}
+
+#playing-info {
+  margin-top: 20px;
 }
