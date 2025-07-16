@@ -157,6 +157,7 @@ startButton.addEventListener("click", () => {
 
     playingInfoDiv.classList.remove("hidden"); // Show the playing info section
     statusText.classList.add("hidden"); // Update status text
+    userInput.value = ""; // Clear the user input field
   }
 });
 
