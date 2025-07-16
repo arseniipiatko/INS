@@ -144,7 +144,7 @@ footer {
 .player-grid {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
-  grid-template-rows: auto repeat(100, 1fr); /* One header row + 100 data rows */
+  grid-template-rows: auto repeat(80, 1fr); /* One header row + 100 data rows */
   gap: 0; /* No gap between cells */
   margin-top: 40px;
   width: 100%;
